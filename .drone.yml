@@ -1,0 +1,23 @@
+---
+kind: pipeline
+type: vm
+name: k8s-monitor
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 1
+
+steps:
+
+  - name: Docker Build
+    image: cube8021/docker-buildx:7
+    environment:
+      DOCKER_USERNAME:
+        from_secret: docker-username
+      DOCKER_PASSWORD:
+        from_secret: docker-password
+    commands:
+    - sh ./docker-build.sh

@@ -1,0 +1,60 @@
+logLevel: debug
+
+image:
+  repository: docker.io/cube8021/probe-a-node
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+settings:
+  # The namespace in which the Probe-A-Node is deployed
+  namespace: probe-a-node
+  # The name of the Probe-A-Node
+  name: Probe-A-Node
+  # The port on which the Probe-A-Node is listening
+  port: 9876
+  # The interval at which the Probe-A-Node will check the health of the node
+  interval: 10
+  # The number of times the Probe-A-Node will retry a failed health check
+  retries: 3
+  # The number of seconds the Probe-A-Node will wait before retrying a failed health check
+  retryInterval: 5
+  # The internal DNS server of the cluster
+  internalDnsServer: "10.43.0.10"
+  # The external DNS server of the cluster
+  externalDnsServer: "1.1.1.1"
+  # The internal DNS test endpoint
+  internalDnsEndpoint: "kubernetes.default.svc.cluster.local"
+  # The external DNS test endpoint
+  externalDnsEndpoint: "github.com"

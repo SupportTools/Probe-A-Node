@@ -1,0 +1,16 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: Probe-A-Node
+  labels:
+    app: Probe-A-Node
+    component: node
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: Probe-A-Node
+subjects:
+- kind: ServiceAccount
+  name: Probe-A-Node
+  namespace: {{ .Release.Namespace}}
